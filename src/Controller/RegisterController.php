@@ -34,7 +34,7 @@ final class RegisterController extends AbstractController
         );
 
             //redirect to a different page after successful registration
-            return $this->redirectToRoute('app_account');
+            return $this->redirectToRoute('app_login');
 
         }
 

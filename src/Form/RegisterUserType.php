@@ -21,12 +21,12 @@ class RegisterUserType extends AbstractType
         $builder
             ->add('firstname', TextType::class, [
                 'label' => 'Prénom',
-                'constraints' => [new Length(['min' => 2, 'max' => 30])],
+                'constraints' => [new Length(min: 2, max: 30)],
                 'attr' => ['placeholder' => 'Entrez votre prénom'],
             ])
             ->add('lastname', TextType::class, [
                 'label' => 'Nom',
-                'constraints' => [new Length(['min' => 4, 'max' => 30])],
+                'constraints' => [new Length(min: 4, max: 30)],
                 'attr' => ['placeholder' => 'Entrez votre nom'],
             ])
             ->add('email', EmailType::class, [
@@ -35,7 +35,7 @@ class RegisterUserType extends AbstractType
             ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'constraints' => [new Length(['min' => 4, 'max' => 30])],
+                'constraints' => [new Length(min: 4, max: 30)],
                 'first_options'  => [
                     'label' => 'Votre mot de passe', 
                     'attr' => [
