@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container my-5">
+    
+
+
+    <div class="row">
+        <div class="col-md-6">
+           <img src="/uploads/{{ product.illustration }}" alt="{{ product.name }}" class="img-fluid">
+        </div>
+
+        <div class="col-md-6">
+            <small><a href="{{ path('app_category', {'slug': product.category.slug}) }}">{{ product.category.name }}</a>>{{ product.name }}</small>
+            <h1>{{ product.name }}</h1>
+            <p>{{ product.description | raw }}</p>
+            <span class="d-block">{{ product.priceWt | priceInEuro}} </span>
+
+            <button class="btn btn-primary mt-3 w-100">Ajouter au panier</button>
+        </div>
+
+</div>
+{% endblock %}
