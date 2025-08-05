@@ -1,20 +1,65 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CartController!{% endblock %}
-
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	<div class="container my-5">
+		<h1>Mon panier</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+		<div class="row">
+			<div class="col-md-8">
+				{% for product in cart %}
+					<div class="row mt-2">
+						<div class="col-md-2">
+							<img src="/uploads/{{ product.object.illustration }}" class="img-fluid" alt="{{ product.object.name }}">
+						</div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/home/tilbo-damon/laboutiquefrancaise/src/Controller/CartController.php</code></li>
-        <li>Your template at <code>/home/tilbo-damon/laboutiquefrancaise/templates/cart/index.html.twig</code></li>
-    </ul>
-</div>
+						<div class="col-md-6">
+							<strong>{{ product.object.priceWt | priceInEuro }}</strong>
+						</div>
+
+						<div class="col-md-2 text-right d-flex align-items-center gap-2">
+							<a href="{{ path('app_cart_decrease', {id : product.object.id}) }}" class="btn btn-primary rounded-circle d-flex justify-content-center align-items-center" style="width: 25px; height: 25px;">
+								-
+							</a>
+
+							<span class="badge text-bg-dark">{{ product.quantity }}</span>
+
+							<a href="{{ path('app_cart_add', {id : product.object.id}) }}" class="btn btn-primary rounded-circle d-flex justify-content-center align-items-center" style="width: 25px; height: 25px;">
+								+
+							</a>
+						</div>
+
+
+						<div class="col-md-2">
+							<strong>{{ (product.object.priceWt * product.quantity) | priceInEuro }}</strong>
+						</div>
+					</div>
+				{% endfor %}
+
+				{% if cart | length > 0 %}
+					<a href="{{ path('app_cart_remove') }}" class="small d-block mt-3">
+					Vider le panier
+				</a>
+				{% endif %}
+				
+			</div>
+			<div class="col-md-4">
+				<div class="bg-light p-3">
+					<div class="d-flex justify-content-between">
+						<span class="fw-bold">Total Produit</span>
+						<span class="fw-bold ">{{ fullCartQuantity}}</span>
+					</div>
+
+					<div class="d-flex justify-content-between mt-3 ">
+						<span class="fw-bold">Prix Total</span>
+						<span class="fw-bold">{{totalWt | priceInEuro}}</span>
+					</div>
+
+					<div>
+						<a href="#" class="btn btn-success w-100 mt-3">Commander</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 {% endblock %}

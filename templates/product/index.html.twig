@@ -16,7 +16,7 @@
             <p>{{ product.description | raw }}</p>
             <span class="d-block">{{ product.priceWt | priceInEuro}} </span>
 
-            <button class="btn btn-primary mt-3 w-100">Ajouter au panier</button>
+            <a href="{{ path('app_cart_add', {id : product.id}) }}" class="btn btn-primary mt-3 w-100">Ajouter au panier</a>
         </div>
 
 </div>
