@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="container my-5">
+    <h1>Espace membre</h1>
+
+    <div class="row">
+        <div class="col-md-3">
+            {% include 'account/_menu.html.twig' %}
+        </div>
+
+        <div class="col-md-9">
+            <h5>Mes Adresses</h5>
+            
+            {{ form_start(AdressForm)}}
+                <div class="row">
+                    <div class="col-md-6">{{ form_row(AdressForm.firstname) }}</div>
+                    <div class="col-md-6">{{ form_row(AdressForm.lastname) }}</div>
+                    <div class="col-md-6">{{ form_row(AdressForm.address) }}</div>
+                    <div class="col-md-6">{{ form_row(AdressForm.postal) }}</div>
+                    <div class="col-md-6">{{ form_row(AdressForm.city) }}</div>
+                    <div class="col-md-6">{{ form_row(AdressForm.country) }}</div>
+                    <div class="col-md-6">{{ form_row(AdressForm.phone) }}</div>
+
+
+                </div>
+            {{ form_end(AdressForm)}}
+        </div>
+
+    </div>
+</div>
+{% endblock %}

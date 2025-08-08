@@ -13,7 +13,7 @@ class Cart
     public function add($product){
         
         //Appeler la session de symfony
-        $cart = $this->requestStack->getSession()->get('cart');
+        $cart = $this->getCart();
 
         if(isset($cart[$product->getId()])){
             $cart[$product->getId()] = [
@@ -36,7 +36,7 @@ class Cart
     }
 
     public function fullQuantity(){
-        $cart = $this->requestStack->getSession()->get('cart');
+        $cart = $this->getCart();
 
         $quantity = 0;
 
@@ -52,7 +52,7 @@ class Cart
     }
 
     public function getTotalWt(){
-         $cart = $this->requestStack->getSession()->get('cart');
+         $cart = $this->getCart();
 
         $price = 0;
         // dd($cart);
@@ -73,7 +73,7 @@ class Cart
     }
 
     public function decrease($id){
-        $cart = $this->requestStack->getSession()->get('cart');
+        $cart = $this->getCart();
 
         if($cart[$id]['quantity'] > 1){
             $cart[$id]['quantity'] = $cart[$id]['quantity'] -1;

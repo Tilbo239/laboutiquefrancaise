@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Account;
 
 use App\Form\PasswordUserType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -10,16 +10,17 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-final class AccountController extends AbstractController
+final class PasswordController extends AbstractController
 {
-    #[Route('/compte', name: 'app_account')]
-    public function index(): Response
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
     {
-        return $this->render('account/index.html.twig');
+        $this->entityManager = $entityManager;
     }
 
     #[Route('/compte/modifier-mot-de-passe', name: 'app_account_modify_password')]
-    public function password(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): Response
+    public function index(Request $request, UserPasswordHasherInterface $passwordHasher): Response
     {
         $user = $this->getUser();
 
@@ -33,15 +34,15 @@ final class AccountController extends AbstractController
 
             // $this->addFlash('success', 'Votre mot de passe a été modifié avec succès.');
 
-            $entityManager->flush();
+            $this->entityManager->flush();
             $this->addFlash(
-            'success', 
-            'Votre mot de passe a été modifié avec succès.'
-        );
+                'success',
+                'Votre mot de passe a été modifié avec succès.'
+            );
 
             // return $this->redirectToRoute('app_account');
         }
-        return $this->render('account/password.html.twig', [
+        return $this->render('account/password/index.html.twig', [
             'modifyPwd' => $form->createView(),
         ]);
     }
